@@ -90,7 +90,7 @@ TIMER STYLES
 }
 .timer__link:active {
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
-    color: #fff;
+    /* color: #fff; */
     background-color: #373737;
 }
 .timer__link.active {
@@ -148,14 +148,18 @@ TIMER STYLES
 }
 .timer__clock {
     display: flex;
-    widows: 100%;
     justify-content: center;
     margin: 2rem 0 3.4rem;
+    flex-direction: column;
+    align-items: center;
 }
 .timer__time {
     font-size: 10rem;
     font-weight: 900;
     color: #373737;
+}
+.timer__end-time {
+    color: #999999;
 }
 
 /* TIMER CONTROLS */
@@ -219,8 +223,8 @@ INFO STYLES
 }
 .info__notifications--btn:active {
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
-    color: #fff;
-    background-color: #373737;
+    /* color: #fff;
+    background-color: #373737; */
 }
 
 /* INFO SETTINGS */
