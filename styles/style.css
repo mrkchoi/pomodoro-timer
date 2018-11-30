@@ -323,7 +323,7 @@ INFO STYLES
         text-align: center;
         font-size: 1.4rem;
         width: 100%;
-        padding: 0.8rem 0;
+        padding: 1.2rem 0;
     }
     .timer__nav--list {
         width: 100%;
@@ -339,9 +339,11 @@ INFO STYLES
         margin: 0;
     }
     .timer__time {
-        font-size: 8rem;
-        font-weight: 900;
+        font-size: 9rem;
+        font-weight: 700;
         color: #373737;
+        margin-bottom: -1rem;
+        margin-top: -1rem;
     }
 
     .timer__controls--list {
