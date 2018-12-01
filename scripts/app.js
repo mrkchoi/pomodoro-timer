@@ -1,9 +1,9 @@
 /**********************
 Pomodoro Timer
 Base Functionality
-It should be able to count down from 25 minutes to 0
-It should always stop counting when reaching 00:00
-It should display each second of counting down
+It should be able to count down from 25 minutes to 0*
+It should always stop counting when reaching 00:00*
+It should display each second of counting down*
 It should have ability to start, stop & reset 
 
 Extras
@@ -28,16 +28,47 @@ It should have keyboard shortcuts
 It should have a FAQ section
 **********************/
 
-let countdown;
+/********************* 
+ * VARIABLES
+ *********************/
+let countdown, dataTime, now, then, newSecondsLeft, status;
 const timerDisplay = document.querySelector('.timer__time');
 const endTime = document.querySelector('.timer__end-time');
 const buttons = document.querySelectorAll('[data-time]');
+const pomodoro = document.querySelector('#pomodoro');
+const shortBreak = document.querySelector('#short-break');
+const longBreak = document.querySelector('#long-break');
+const timerNavLink = document.querySelectorAll('.timer__nav--link');
+const start = document.querySelector('#start');
+const stop = document.querySelector('#stop');
+const reset = document.querySelector('#reset');
 
+/********************* 
+ * EVENT LISTENERS
+ *********************/
+buttons.forEach((button => {
+    button.addEventListener('click', updateTimer);
+}));
+
+// MODE BUTTONS
+pomodoro.addEventListener('click', pomoActive);
+shortBreak.addEventListener('click', sbActive);
+longBreak.addEventListener('click', lbActive);
+
+// TIMER CONTROLS
+start.addEventListener('click', startControl);
+stop.addEventListener('click', stopControl);
+reset.addEventListener('click', resetControl);
+
+
+/********************* 
+ * TIMER
+ *********************/
 function timer(seconds) {
     // Clear any existing timers
     clearInterval(countdown);
-    const now = Date.now();
-    const then = now + seconds * 1000;
+    now = Date.now();
+    then = now + seconds * 1000;
     displayTimeLeft(seconds);
     displayEndTime(then);
     // console.log({now, then});
@@ -50,8 +81,65 @@ function timer(seconds) {
         }
         displayTimeLeft(secondsLeft);
     }, 1000);
+    started = true;
 }
 
+// START TIMER
+function updateTimer() {
+    const seconds = parseInt(this.dataset.time);
+    timer(seconds);
+    clearInterval(countdown);
+}
+
+function startControl(e) {
+    if(pomodoro.classList.contains('active')) {
+        dataTime = pomodoro.dataset.time;
+    } else if(shortBreak.classList.contains('active')) {
+        dataTime = shortBreak.dataset.time;
+    } else if(longBreak.classList.contains('active')) {
+        dataTime = longBreak.dataset.time;
+    }
+
+    if(status === false) {
+        timer(newSecondsLeft);
+        status = true;
+    } else if(!status || status === 'reset') {
+        timer(dataTime);
+        status = true;
+    } else {
+        return;
+    }
+}
+
+function stopControl() {
+    // If there is no stopped status, then stop and create new seconds reference
+    if(status === true) {
+        newSecondsLeft = Math.round((then - Date.now()) / 1000);
+        clearInterval(countdown);
+        status = false;
+    } else {
+        return;
+    }
+}
+
+function resetControl() {
+    if(pomodoro.classList.contains('active')) {
+        dataTime = pomodoro.dataset.time;
+    } else if(shortBreak.classList.contains('active')) {
+        dataTime = shortBreak.dataset.time;
+    } else if(longBreak.classList.contains('active')) {
+        dataTime = longBreak.dataset.time;
+    }
+
+    timer(dataTime);
+    clearInterval(countdown);
+    status = 'reset';
+
+}
+
+/********************* 
+ * DISPLAY [TIMER]
+ *********************/
 function displayTimeLeft(seconds) {
     const minutes = Math.floor(seconds / 60);
     const remainderSeconds = seconds % 60;
@@ -72,14 +160,37 @@ function displayEndTime(timestamp) {
     console.log(`Timer ends at ${hour % 12}:${minutes < 10 ? `0` : ''}${minutes}${hour > 12 ? 'pm' : 'am'}`);
 }
 
-function startTimer() {
-    const seconds = parseInt(this.dataset.time);
-    timer(seconds);
+
+
+
+
+/********************* 
+ * DISPLAY [BUTTON STYLING]
+ *********************/
+function sbActive() {
+    if(!shortBreak.classList.contains('active')) {
+        shortBreak.classList.toggle('active');
+    }
+    pomodoro.classList.remove('active');
+    longBreak.classList.remove('active');
 }
 
-buttons.forEach((button => {
-    button.addEventListener('click', startTimer);
-}));
+function pomoActive() {
+    if(!pomodoro.classList.contains('active')) {
+        pomodoro.classList.toggle('active');
+    }
+    shortBreak.classList.remove('active');
+    longBreak.classList.remove('active');
+}
+
+function lbActive() {
+    if(!longBreak.classList.contains('active')) {
+        longBreak.classList.toggle('active');
+    }
+    pomodoro.classList.remove('active');
+    shortBreak.classList.remove('active');
+}
+
 
 // document.customForm.addEventListener('submit', function(e) {
 //     e.preventDefault();
