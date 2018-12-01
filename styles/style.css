@@ -1,4 +1,11 @@
 /************************** 
+VARIABLES
+**************************/
+* {
+    --main__color: #3D87E4;
+}
+
+/************************** 
 GLOBAL STYLES
 **************************/
 body {
@@ -74,7 +81,7 @@ TIMER STYLES
 /* TIMER LINK STYLES */
 .timer__link {
     text-decoration: none;
-    color: rgba(227, 97, 14, 1);
+    color: var(--main__color);
     padding: 1.2rem 7rem;
     margin: 0 1rem;
     border: 1px solid rgba(0,0,0,.05);
@@ -86,7 +93,7 @@ TIMER STYLES
 }
 .timer__link:hover {
     box-shadow: 0 3px 6px rgba(0,0,0,.1);
-    color: rgba(227, 97, 14, 1);
+    color: var(--main__color);
 }
 .timer__link:active {
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
@@ -94,7 +101,7 @@ TIMER STYLES
     /* background-color: #373737; */
 }
 .timer__link.active {
-    background-color: rgba(227, 97, 14, 1);
+    background-color: var(--main__color);
     color: #fff;
 }
 
@@ -105,7 +112,8 @@ TIMER STYLES
 .timer__header--title {
     font-weight: 600;
     font-size: 4.4rem;
-    margin-bottom: 0rem;
+    margin-bottom: 0;
+    /* margin-bottom: 2.4rem; */
     /* font-family: "Merriweather", serif; */
     font-family: "Roboto Slab", serif;
     font-family: "Lora", serif;
@@ -116,11 +124,13 @@ TIMER STYLES
     transform: skewX(-25deg) scaleY(0.8);
     display: inline-block;
     font-weight: 900;
-    color: #e3610e;
+    color: var(--main__color);
+    /* display: none; */
 }
 .timer__header--subtitle {
     margin-top: 0.3rem;
     margin-bottom: 3rem;
+    /* display: none; */
 }
 
 /* TIMER NAV */
@@ -207,7 +217,7 @@ INFO STYLES
 .info__notifications--content {}
 .info__notifications--btn {
     text-decoration: none;
-    color: rgba(227, 97, 14, 1);
+    color: var(--main__color);
     padding: .8rem 1.4rem;
     border: 1px solid rgba(0,0,0,.05);
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
