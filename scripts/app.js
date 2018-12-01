@@ -1,16 +1,16 @@
 /**********************
 Pomodoro Timer
 Base Functionality
-It should be able to count down from 25 minutes to 0*
-It should always stop counting when reaching 00:00*
-It should display each second of counting down*
-It should have ability to start, stop & reset 
+***It should be able to count down from 25 minutes to 0
+***It should always stop counting when reaching 00:00
+***It should display each second of counting down*
+***It should have ability to start, stop & reset 
 
 Extras
 Tier #1
-It should give an alarm sound when the timer counts down to 0
-It should give the option for pomodoro, short break & long break
-It should display the current time remaining in the page title
+***It should give an alarm sound when the timer counts down to 0
+***It should give the option for pomodoro, short break & long break
+***It should display the current time remaining in the page title
 
 Tier #2
 It should have a settings panel for the following:
@@ -26,12 +26,13 @@ It should have options for save, reset & sound test
 Tier #3
 It should have keyboard shortcuts
 It should have a FAQ section
+It should have browser notifications/desktop notifications
 **********************/
 
 /********************* 
  * VARIABLES
  *********************/
-let countdown, dataTime, now, then, newSecondsLeft, status;
+let countdown, dataTime, now, then, newSecondsLeft, status, alarmSound;
 const timerDisplay = document.querySelector('.timer__time');
 const endTime = document.querySelector('.timer__end-time');
 const buttons = document.querySelectorAll('[data-time]');
@@ -77,14 +78,20 @@ function timer(seconds) {
         // Check if we should stop
         if(secondsLeft < 0) {
             clearInterval(countdown);
+            document.title = `TIME'S UP!`;
+            soundAlert();
+            displayUpdateEndTime(then);
+            status = 'reset';
             return;
         }
         displayTimeLeft(secondsLeft);
     }, 1000);
-    started = true;
+    // started = true;
 }
 
-// START TIMER
+/********************* 
+ * TIMER CONTROLS
+ *********************/
 function updateTimer() {
     const seconds = parseInt(this.dataset.time);
     timer(seconds);
@@ -134,7 +141,6 @@ function resetControl() {
     timer(dataTime);
     clearInterval(countdown);
     status = 'reset';
-
 }
 
 /********************* 
@@ -156,13 +162,22 @@ function displayEndTime(timestamp) {
     const end = new Date(timestamp);
     const hour = end.getHours();
     const minutes = end.getMinutes();
-    endTime.textContent = `Timer ends at ${hour % 12}:${minutes < 10 ? `0` : ''}${minutes}${hour > 12 ? 'pm' : 'am'}`;
-    console.log(`Timer ends at ${hour % 12}:${minutes < 10 ? `0` : ''}${minutes}${hour > 12 ? 'pm' : 'am'}`);
+
+    endTime.textContent = `
+        Timer ends at ${hour % 12 === 0 ? '12' : ''}${hour > 12 ? hour - 12 : ''}${hour < 12 ? hour : ''}:${minutes < 10 ? `0` : ''}${minutes}${hour > 12 ? 'pm' : 'am'}
+    `;
+    console.log(`Timer ends at ${hour % 12 === 0 ? '12' : ''}${hour > 12 ? hour - 12 : ''}${hour < 12 ? hour : ''}:${minutes < 10 ? `0` : ''}${minutes}${hour > 12 ? 'pm' : 'am'}`);
 }
 
+function displayUpdateEndTime(timestamp) {
+    const end = new Date(timestamp);
+    const hour = end.getHours();
+    const minutes = end.getMinutes();
 
-
-
+    endTime.textContent = `
+        Timer ended at ${hour % 12 === 0 ? '12' : ''}${hour > 12 ? hour - 12 : ''}${hour < 12 ? hour : ''}:${minutes < 10 ? `0` : ''}${minutes}${hour > 12 ? 'pm' : 'am'}
+    `;
+}
 
 /********************* 
  * DISPLAY [BUTTON STYLING]
@@ -173,6 +188,7 @@ function sbActive() {
     }
     pomodoro.classList.remove('active');
     longBreak.classList.remove('active');
+    status = 'reset';
 }
 
 function pomoActive() {
@@ -181,6 +197,7 @@ function pomoActive() {
     }
     shortBreak.classList.remove('active');
     longBreak.classList.remove('active');
+    status = 'reset';
 }
 
 function lbActive() {
@@ -189,6 +206,7 @@ function lbActive() {
     }
     pomodoro.classList.remove('active');
     shortBreak.classList.remove('active');
+    status = 'reset';
 }
 
 
@@ -199,3 +217,14 @@ function lbActive() {
 //     timer(mins * 60);
 //     this.reset();
 // });
+
+
+/********************* 
+ * ALARM NOTIFICATION
+ *********************/
+
+function soundAlert() {
+    let alarmSrc = '../assets/audio/success-note.mp3';
+    let alarm = new Audio(`${alarmSrc}`);
+    alarm.play();
+}

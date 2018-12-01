@@ -65,7 +65,7 @@
                 <div class="timer__nav">
                     <ul class="timer__nav--list">
                         <li class="timer__nav--item">
-                            <a href="#" class="timer__nav--link timer__link active" id="pomodoro" data-time="1500">Pomodoro</a>
+                            <a href="#" class="timer__nav--link timer__link active" id="pomodoro" data-time="2">Pomodoro</a>
                         </li>
                         <li class="timer__nav--item">
                             <a href="#" class="timer__nav--link timer__link" id="short-break" data-time="300">Short Break</a>
@@ -126,6 +126,57 @@
                         <p class="info__settings--content">You can set custom times, audio tone and volume via Settings.</p>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="container__settings">
+        <div class="settings__wrapper">
+            <h3 class="settings__header">
+                Settings
+            </h3>
+
+            <form class="settings__form">
+                <h4 class="settings__subheader">
+                    Preferences
+                </h4>
+
+                <label for="browser-notifications" class="settings__label settings__notifications">Enable browser notifications?</label>
+                <input type="checkbox" id="browser-notifications" class="settings__input--checkbox" checked>
+
+                <h4 class="settings__subheader">Select Sound</h4>
+                <select name="sounds" id="sound-settings" class="settings__sound" size="6">
+                    <option value="arpeggio">Arpeggio</option>
+                    <option value="classic-alarm">Classic Alarm</option>
+                    <option value="classic-ring">Classic Ring</option>
+                    <option value="short-beeps">Short Beeps</option>
+                    <option value="success-sound">Success Sound</option>
+                    <option value="wristwatch-alarm">Wristwatch Alarm</option>
+                </select>
+
+                <label for="settings__volume--slider" class="settings__subheader">Select Volume</label>
+                <input type="range" id="settings__volume--slider" class="settings__volume">
+
+                <h4 class="settings__subheader">Set Custom Times (in minutes)</h4>
+                <div class="settings__custom--times">
+                    <label for="setting__time--pomodoro" class="settings__label">Pomodoro</label>
+                    <input type="number" id="setting__time--pomodoro" class="settings__input--number" value="25">
+                </div>
+                <div class="settings__custom--times">
+                    <label for="setting__time--short-break" class="settings__label">Pomodoro</label>
+                    <input type="number" id="setting__time--short-break" class="settings__input--number" value="5">
+                </div>
+                <div class="settings__custom--times">
+                    <label for="setting__time--long-break" class="settings__label">Pomodoro</label>
+                    <input type="number" id="setting__time--long-break" class="settings__input--number" value="10">
+                </div>
+
+                <div class="settings__buttons">
+                    <button type="submit" id="settings__button--submit" value="save">Save</button>
+                    <button id="settings__button--reset" value="reset">Reset</button>
+                    <button id="settings__button--sound-test" value="sound test">Sound Test</button>
+                </div>
+            </form>
+            
         </div>
     </div>
 
