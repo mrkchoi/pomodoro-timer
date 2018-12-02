@@ -84,7 +84,6 @@ TIMER STYLES
     color: var(--main__color);
     background-color: #fff;
     padding: 1.2rem 7rem;
-    margin: 0 1rem;
     border: 1px solid rgba(0,0,0,.05);
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
     font-size: 1.6rem;
@@ -186,6 +185,9 @@ TIMER STYLES
 .timer__controls--item {
     list-style: none;
     display: inline-block;
+}
+.timer__controls--link {
+    margin: 0 1rem;
 }
 
 /************************** 
@@ -379,4 +381,157 @@ INFO STYLES
         display: none;
     }
 
+}
+
+
+/************************** 
+SETTINGS MODAL STYLES
+**************************/
+.container__settings {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,.8);
+    display: none;
+}
+.settings__wrapper {
+    background-color: #efefef;
+    padding: 4rem 5rem;
+    position: relative;
+    top: 50%;
+    width: 38rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.settings__header--wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.settings__header {
+    font-family: "Lora", serif;
+    font-weight: 600;
+    font-size: 3.6rem;
+    margin-bottom: 0;
+    /* color: var(--main__color); */
+}
+.settings__btn-close--wrapper {
+    display: flex;
+    align-items: flex-start;
+}
+.settings__close--btn {
+    text-decoration: none;
+    color: #373737;
+    font-size: 4rem;
+    transition: all 150ms;
+    display: inline-block;
+    margin: 0;
+    padding: 1rem;
+    position: relative;
+    top: -3.8rem;
+    right: -2rem;
+}
+
+.settings__close--btn:hover {
+    color: #000;
+    transform: scale(1.1);
+    backface-visibility: hidden;
+}
+.settings__form {}
+.settings__subheader {
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+.settings__label {
+    font-size: 1.4rem;
+    /* line-height: 1.6; */
+    font-weight: 400;
+    margin-bottom: 0;
+}
+.settings__notifications--wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+.settings__notifications {
+    margin-left: 1rem;
+}
+.settings__input--checkbox {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.settings__sound {
+    height: initial;
+    font-size: 1.2rem;
+    width: 30rem;
+    margin-bottom: 3rem;
+    padding: 0;
+}
+.settings__sound option {
+    padding: 0.7rem;
+}
+.settings__volume__slider-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+.settings__volume--slider {}
+.settings__volume--label {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+.settings__volume {
+    margin-bottom: 0;
+    width: 23rem;
+    margin: 0 1rem;
+}
+.settings__custom--times-wrapper {
+    display: flex;
+    margin-bottom: 3rem;
+}
+.settings__custom--times {
+    margin-right: 1rem;
+}
+.settings__input--number {
+    width: 11rem;
+    margin-bottom: 0;
+    font-size: 1.2rem;
+}
+.settings__buttons {}
+.settings__button {
+    text-decoration: none;
+    text-transform: initial;
+    background-color: var(--main__color);
+    color: #fff;
+    margin-right: 1rem;
+    border: 1px solid rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 3px;
+    transition: all 100ms;
+}
+
+.settings__button:hover {
+    border: 1px solid transparent;
+    box-shadow: 0 3px 6px rgba(0,0,0,.1);
+}
+.settings__button:active {
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+}
+.settings__button:focus {
+    border: 1px solid transparent;
+}
+#settings__button--submit:hover {
+    color: #fff;
+}
+#settings__button--submit:focus {
+    color: #fff;
+}
+#settings__button--reset,
+#settings__button--sound-test {
+    color: var(--main__color);
+    background-color: #fff;
 }

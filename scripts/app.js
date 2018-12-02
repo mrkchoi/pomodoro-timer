@@ -13,26 +13,25 @@ Tier #1
 ***It should display the current time remaining in the page title
 
 Tier #2
-It should have a settings panel for the following:
+***It should have a settings panel for the following:
 User preferences:
-Timer indication in title
-Browser notifications
-Auto start pomodoros and breaks
-Select Sound
-Select Volume
-Set Custom Times
-It should have options for save, reset & sound test
+***Timer indication in title
+***Select Sound
+***Select Volume
+***Set Custom Times
+***It should have options for save, reset & sound test
 
 Tier #3
-It should have keyboard shortcuts
-It should have a FAQ section
-It should have browser notifications/desktop notifications
+Keyboard shortcuts
+FAQ section
+Browser notifications/desktop notifications
+Auto start pomodoros and breaks
 **********************/
 
 /********************* 
  * VARIABLES
  *********************/
-let countdown, dataTime, now, then, newSecondsLeft, status, alarmSound;
+let countdown, dataTime, now, then, newSecondsLeft, status, alarmSound, alarmSrc, setVolume, selectedSound;
 const timerDisplay = document.querySelector('.timer__time');
 const endTime = document.querySelector('.timer__end-time');
 const buttons = document.querySelectorAll('[data-time]');
@@ -43,6 +42,17 @@ const timerNavLink = document.querySelectorAll('.timer__nav--link');
 const start = document.querySelector('#start');
 const stop = document.querySelector('#stop');
 const reset = document.querySelector('#reset');
+
+const settingsNav = document.querySelector('#header__nav--settings');
+const settingsForm = document.querySelector('.settings__form');
+const settingsModal = document.querySelector('.container__settings');
+const closeModalBtn = document.querySelector('.settings__close--btn');
+const soundSettingsInput = document.querySelector('.settings__sound');
+const soundVolumeInput = document.querySelector('.settings__volume');
+const soundtestBtn = document.querySelector('#settings__button--sound-test');
+const customPomo = document.querySelector('#setting__time--pomodoro');
+const customSB = document.querySelector('#setting__time--short-break');
+const customLB = document.querySelector('#setting__time--long-break');
 
 /********************* 
  * EVENT LISTENERS
@@ -61,6 +71,16 @@ start.addEventListener('click', startControl);
 stop.addEventListener('click', stopControl);
 reset.addEventListener('click', resetControl);
 
+// SETTINGS MODAL
+settingsNav.addEventListener('click', openModal);
+closeModalBtn.addEventListener('click', closeModal);
+settingsForm.addEventListener('submit', updateSettings);
+soundSettingsInput.addEventListener('change', updateSound);
+soundVolumeInput.addEventListener('input', updateVolume);
+soundtestBtn.addEventListener('click', updateSound);
+customPomo.addEventListener('change', updatePomo);
+customSB.addEventListener('change', updateShortBreak);
+customLB.addEventListener('change', updateLongBreak);
 
 /********************* 
  * TIMER
@@ -79,14 +99,13 @@ function timer(seconds) {
         if(secondsLeft < 0) {
             clearInterval(countdown);
             document.title = `TIME'S UP!`;
-            soundAlert();
+            updateSound();
             displayUpdateEndTime(then);
             status = 'reset';
             return;
         }
         displayTimeLeft(secondsLeft);
     }, 1000);
-    // started = true;
 }
 
 /********************* 
@@ -222,9 +241,69 @@ function lbActive() {
 /********************* 
  * ALARM NOTIFICATION
  *********************/
-
 function soundAlert() {
-    let alarmSrc = '../assets/audio/success-note.mp3';
+    // let alarmSrc = '../assets/audio/success-note.mp3';
     let alarm = new Audio(`${alarmSrc}`);
-    alarm.play();
+    if(!setVolume) {
+        alarm.play();
+    } else {
+        alarm.volume = setVolume;
+        alarm.play();
+    }
+}
+
+/********************* 
+ * SETTINGS MODAL
+ *********************/
+function openModal() {
+    settingsModal.style.display = 'initial';
+}
+function closeModal() {
+    settingsModal.style.display = 'none';
+}
+
+function updateSettings(e) {
+    e.preventDefault();
+    // Update Sound file
+    // updateSound();
+
+    // closeModal();
+}
+
+function updateSound() {
+    selectedSound = soundSettingsInput.selectedIndex; 
+    
+    let soundOptions = soundSettingsInput.querySelectorAll('option');
+    console.log(soundOptions[selectedSound]); 
+    soundOptions.forEach(sound => {
+        sound.selected = false;
+    });
+
+    soundOptions[selectedSound].selected = true; 
+    alarmSrc = soundOptions[selectedSound].value;
+    soundAlert();
+}
+
+function updateVolume(e) {
+    setVolume = e.target.value / 100;
+}
+
+function updatePomo(e) {
+    let newPomo = e.target.value * 60;
+    pomodoro.dataset.time = newPomo;
+    displayTimeLeft(newPomo);
+    resetControl();
+    // console.log(newPomo);
+}
+function updateShortBreak(e) {
+    let newSB = e.target.value * 60;
+    shortBreak.dataset.time = newSB;
+    displayTimeLeft(newSB);
+    resetControl();
+}
+function updateLongBreak(e) {
+    let newLB = e.target.value * 60;
+    longBreak.dataset.time = newLB;
+    displayTimeLeft(newLB);
+    resetControl();
 }
