@@ -633,6 +633,19 @@ FAQ STYLES
 .container__faq--wrapper {
     display: none;
 }
+.container__header--wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.faq__header--back {
+    color: var(--color__dark);
+    text-decoration: none;
+    transition: all 150ms;
+}
+.faq__header--back:hover {
+    color: #000;
+}
 .container__faq {
     max-width: 60rem;
     margin-bottom: 20rem;

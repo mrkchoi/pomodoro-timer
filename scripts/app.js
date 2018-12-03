@@ -68,6 +68,7 @@ const notifyModalCheckbox = document.querySelector('#browser-notifications');
 const faqBtn = document.querySelector('.header__nav--faq');
 const faqContent = document.querySelector('.container__faq--wrapper'); 
 const faqBackBtn = document.querySelector('#faq-timer'); 
+const faqBackBtnTop = document.querySelector('.faq__header--back'); 
 
 /********************* 
  * EVENT LISTENERS
@@ -108,6 +109,7 @@ enableDesktopAlertsBtn.addEventListener('click', requestNotificationStatus);
 // FAQ SECTION
 faqBtn.addEventListener('click', showFAQ);
 faqBackBtn.addEventListener('click', hideFAQ);
+faqBackBtnTop.addEventListener('click', hideFAQ);
 
 /********************* 
  * TIMER
