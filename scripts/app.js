@@ -22,16 +22,21 @@ User preferences:
 ***It should have options for save, reset & sound test
 
 Tier #3
-Keyboard shortcuts
+***Keyboard shortcuts
 FAQ section
 Browser notifications/desktop notifications
+Ads
+
+Tier #4
 Auto start pomodoros and breaks
 **********************/
 
 /********************* 
  * VARIABLES
  *********************/
-let countdown, dataTime, now, then, newSecondsLeft, status, alarmSound, alarmSrc, setVolume, selectedSound;
+// Global
+ let countdown, dataTime, now, then, newSecondsLeft, status, alarmSound, alarmSrc, setVolume, selectedSound;
+// Timer
 const timerDisplay = document.querySelector('.timer__time');
 const endTime = document.querySelector('.timer__end-time');
 const buttons = document.querySelectorAll('[data-time]');
@@ -42,8 +47,10 @@ const timerNavLink = document.querySelectorAll('.timer__nav--link');
 const start = document.querySelector('#start');
 const stop = document.querySelector('#stop');
 const reset = document.querySelector('#reset');
-
+const timerSection = document.querySelector('.container__timer--wrapper');
+// Settings
 const settingsNav = document.querySelector('#header__nav--settings');
+const settingswrapper = document.querySelector('.settings__wrapper');
 const settingsForm = document.querySelector('.settings__form');
 const settingsModal = document.querySelector('.container__settings');
 const closeModalBtn = document.querySelector('.settings__close--btn');
@@ -53,6 +60,14 @@ const soundtestBtn = document.querySelector('#settings__button--sound-test');
 const customPomo = document.querySelector('#setting__time--pomodoro');
 const customSB = document.querySelector('#setting__time--short-break');
 const customLB = document.querySelector('#setting__time--long-break');
+const saveSettings = document.querySelector('#settings__button--submit');
+const saveSettingsConfirm = document.querySelector('.settings__buttons--saved-message');
+const enableDesktopAlertsBtn = document.querySelector('.info__notifications--btn');
+const notifyModalCheckbox = document.querySelector('#browser-notifications');
+// FAQ
+const faqBtn = document.querySelector('.header__nav--faq');
+const faqContent = document.querySelector('.container__faq--wrapper'); 
+const faqBackBtn = document.querySelector('#faq-timer'); 
 
 /********************* 
  * EVENT LISTENERS
@@ -74,6 +89,7 @@ reset.addEventListener('click', resetControl);
 // SETTINGS MODAL
 settingsNav.addEventListener('click', openModal);
 closeModalBtn.addEventListener('click', closeModal);
+settingsModal.addEventListener('click', closeModalOnExit);
 settingsForm.addEventListener('submit', updateSettings);
 soundSettingsInput.addEventListener('change', updateSound);
 soundVolumeInput.addEventListener('input', updateVolume);
@@ -81,6 +97,17 @@ soundtestBtn.addEventListener('click', updateSound);
 customPomo.addEventListener('change', updatePomo);
 customSB.addEventListener('change', updateShortBreak);
 customLB.addEventListener('change', updateLongBreak);
+saveSettings.addEventListener('click', saveSettingsMsg);
+
+// KEYBOARD SHORTCUTS
+window.addEventListener('keydown', keyEvent);
+
+// DESKTOP ALERTS
+enableDesktopAlertsBtn.addEventListener('click', requestNotificationStatus);
+
+// FAQ SECTION
+faqBtn.addEventListener('click', showFAQ);
+faqBackBtn.addEventListener('click', hideFAQ);
 
 /********************* 
  * TIMER
@@ -181,21 +208,39 @@ function displayEndTime(timestamp) {
     const end = new Date(timestamp);
     const hour = end.getHours();
     const minutes = end.getMinutes();
+    let displayHours;
+    if(hour > 12) {
+        displayHours = hour - 12;
+    } else if(hour === 0 || hour === 12) {
+        displayHours = 12;
+    } else {
+        displayHours = hours;
+    }
 
     endTime.textContent = `
-        Timer ends at ${hour % 12 === 0 ? '12' : ''}${hour > 12 ? hour - 12 : ''}${hour < 12 ? hour : ''}:${minutes < 10 ? `0` : ''}${minutes}${hour > 12 ? 'pm' : 'am'}
+        Timer ends at ${displayHours}:${minutes < 10 ? `0` : ''}${minutes}${hour > 12 ? 'pm' : 'am'}
     `;
-    console.log(`Timer ends at ${hour % 12 === 0 ? '12' : ''}${hour > 12 ? hour - 12 : ''}${hour < 12 ? hour : ''}:${minutes < 10 ? `0` : ''}${minutes}${hour > 12 ? 'pm' : 'am'}`);
+    console.log(`Timer ends at ${displayHours}:${minutes < 10 ? `0` : ''}${minutes}${hour > 12 ? 'pm' : 'am'}`);
 }
 
 function displayUpdateEndTime(timestamp) {
     const end = new Date(timestamp);
     const hour = end.getHours();
     const minutes = end.getMinutes();
-
+    let displayHours, endNotify;
+    if(hour > 12) {
+        displayHours = hour - 12;
+    } else if(hour === 0 || hour === 12) {
+        displayHours = 12;
+    } else {
+        displayHours = hours;
+    }
+    
+    endNotify = `${displayHours}:${minutes < 10 ? `0` : ''}${minutes}${hour > 12 ? 'pm' : 'am'}`;
     endTime.textContent = `
-        Timer ended at ${hour % 12 === 0 ? '12' : ''}${hour > 12 ? hour - 12 : ''}${hour < 12 ? hour : ''}:${minutes < 10 ? `0` : ''}${minutes}${hour > 12 ? 'pm' : 'am'}
+        Timer ended at ${endNotify}
     `;
+    alarmNotification(endNotify);
 }
 
 /********************* 
@@ -261,6 +306,12 @@ function openModal() {
 function closeModal() {
     settingsModal.style.display = 'none';
 }
+function closeModalOnExit(e) {
+    // console.log(e.target);
+    if(e.target.classList.contains('container__settings')) {
+        closeModal();
+    }
+}
 
 function updateSettings(e) {
     e.preventDefault();
@@ -274,7 +325,6 @@ function updateSound() {
     selectedSound = soundSettingsInput.selectedIndex; 
     
     let soundOptions = soundSettingsInput.querySelectorAll('option');
-    console.log(soundOptions[selectedSound]); 
     soundOptions.forEach(sound => {
         sound.selected = false;
     });
@@ -306,4 +356,88 @@ function updateLongBreak(e) {
     longBreak.dataset.time = newLB;
     displayTimeLeft(newLB);
     resetControl();
+}
+
+function saveSettingsMsg() {
+    saveSettingsConfirm.classList.toggle('active');
+    setTimeout(() => {
+        saveSettingsConfirm.classList.toggle('active');
+    }, 2500);
+}
+
+
+
+/********************* 
+ * KEYBOARD SHORTCUTS
+ *********************/
+function keyEvent(e) {
+    keyCode = e.key;
+        
+    if(keyCode === 'π') {
+        // ALT + P -> set pomodoro to active
+        pomoActive();
+        resetControl()
+    } else if(keyCode === 'ß') {
+        // ALT + S -> set short break to active
+        sbActive();
+        resetControl()
+    } else if(keyCode === '¬') {
+        // ALT + L -> set long break to active
+        lbActive();
+        resetControl();
+    } else if(keyCode === '®') {
+        // ALT + R -> reset
+        resetControl()
+    } else if(e.keyCode === 32) {
+        // SPACE -> start / stop timer
+        if(!status) {
+            startControl();
+        } else if(status === false) {
+            startControl();
+        } else if(status === true) {
+            stopControl();
+        } else if(status === 'reset') {
+            startControl();
+        }
+    }
+}
+
+
+/********************* 
+ * BROWSER NOTIFICATION
+ *********************/
+
+function requestNotificationStatus() {
+    if(window.Notification) {
+        if(Notification.permission === 'granted') {
+            Notification.requestPermission((status) => {
+                let n = new Notification('tomatotimer.io', {
+                    body: 'Desktop alerts enabled!'
+                });
+            });
+        } else if(Notification.permission === 'default') {
+            let n = Notification.requestPermission();
+        } else {
+            alert('Notifications have been blocked. Please enable them in your browser settings.');
+        }
+    }
+}
+
+function alarmNotification(alertMessage) {
+    new Notification(`Time's Up!`, {
+        body: `Time ended at ${alertMessage}`,
+        requireInteraction: true
+    });
+}
+
+/********************* 
+ * FAQ NOTIFICATION
+ *********************/
+function showFAQ() {
+    faqContent.style.display = 'block';
+    timerSection.style.display = 'none';
+}
+function hideFAQ() {
+    faqContent.style.display = 'none';
+    timerSection.style.display = 'block';
 }

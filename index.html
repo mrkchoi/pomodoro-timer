@@ -2,41 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <!-- Bootstrap -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
-
-    <!-- Materalize CSS [Compiled and minified] -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">   -->
+    <meta name="title" content="tomatotimer.io | Pomodoro Timer">
+    <meta name="description" content="Pomodoro Timer is a simple and flexible online Pomodoro Technique Timer.">
+    <meta name="keywords" content="Pomodoro Technique, Pomodoro Timer, Pomodoro Clock">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="1 day">
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5K6852P');
+    </script>
+    <!-- End Google Tag Manager -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-9064304111000096",
+            enable_page_level_ads: true
+        });
+    </script>
 
     <!-- Google Fonts [Open Sans & Source Sans Pro] -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i|Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Merriweather:300,300i,400,400i,700,700i,900,900i|Roboto+Slab:300,300i,400,400i,700,700i,900,900i|Lora:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900,|Lora:400,700,900" rel="stylesheet">
 
     <!-- Skeleton CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles/style.css">
-    <title>Pomodoro Timer | Kenny Choi</title>
+    <title>Pomodoro Timer</title>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5K6852P"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <div class="container container__header">
         <!-- HEADER + NAV -->
         <div class="header">
             <!-- HEADER LOGO -->
             <div class="header__logo">
-                <a href="#" class="header__logo--main">tomatotimer.io</a>
+                <a href="http://tomatotimer.io" class="header__logo--main">tomatotimer.io</a>
             </div>
             <!-- HEADER NAV -->
             <div class="header__nav">
                 <ul class="header__nav--list">
                     <li class="header__nav--item">
-                        <a href="#" class="header__nav--link">FAQ</a>
+                        <a href="#" class="header__nav--link header__nav--faq">FAQ</a>
                     </li>
                     <li class="header__nav--item">
                         <a href="#" class="header__nav--link" id="header__nav--settings">Settings</a>
@@ -47,7 +68,7 @@
 
         <!-- TIMER HEADER -->
         <div class="timer__header">
-            <h1 class="timer__header--title">Pomodoro Timer</h1>
+            <h1 class="timer__header--title"><a href="http://tomatotimer.io" class="timer__header--title-link">Pomodoro Timer</a></h1>
             <span class="timer__header--divider">/ / / / / / / / / / </span>
             <p class="timer__header--subtitle">
                 Your productivity, improved.
@@ -86,7 +107,7 @@
                 <div class="timer__controls">
                     <ul class="timer__controls--list">
                         <li class="timer__controls--item">
-                            <a href="#" class="timer__controls--link timer__link active" id="start">Start</a>
+                            <a href="#" class="timer__controls--link timer__link" id="start">Start</a>
                         </li>
                         <li class="timer__controls--item">
                             <a href="#" class="timer__controls--link timer__link" id="stop">Stop</a>
@@ -129,6 +150,44 @@
         </div>
     </div>
 
+    <div class="container__faq--wrapper">
+        <div class="container container__faq">
+            <h2 class="faq__header">FAQ</h2>
+            
+            <h3 class="faq__subtitle">What is the Pomodoro Technique?</h3>
+            <p class="faq__content">In a world filled with endless distractions, time management has become more important than ever. Learning to work with time (rather than against it) is one of the keys to mastering productivity. That’s why Francesco Cirillo created the <strong>Pomodoro Technique</strong> in the late 1980s.
+                </p>
+                <p class="faq__content">Widely popularized by news outlets and a barrage of apps and websites, the technique uses a timer to break down work into intervals called Pomodoros - aptly named after the tomato-shaped kitchen timer that Cirillo used as a university student. Each Pomodoro is traditionally 25 minutes in length, followed by a short break of 5 minutes. After the short break is complete, another Pomodoro is started. The cycle continues for four rounds, when the short break is replaced with a longer break of anywhere from 10-30 minutes.</p>
+            <h3 class="faq__subtitle">What are the principles of the original technique?</h3>
+            <p class="faq__content">
+                    Principles of the Pomodoro Technique:
+                <ol class="faq__list">
+                    <li class="faq__list--item"><strong>Decide on a task to accomplish</strong></li>
+                    <li class="faq__list--item"><strong>Set the Pomodoro Timer (traditionally 25 minutes)</strong></li>
+                    <li class="faq__list--item"><strong>Work on the task</strong></li>
+                    <li class="faq__list--item"><strong>End work when the timer rings</strong></li>
+                    <li class="faq__list--item"><strong>After four pomodoros, take a longer break (10-30 minutes)</strong></li>
+                    <li class="faq__list--item"><strong>Repeat steps 1-5</strong></li>
+                </ol>
+            </p>
+            <h3 class="faq__subtitle">What are the benefits of using the Pomodoro Technique?</h3>
+            <p class="faq__content">
+                    The goal of the Pomodoro Technique is the limit the negative import of interruptions while focusing on work.  Benefits of using the Pomodoro Technique include:
+                <ul class="faq__list">
+                    <li class="faq__list--item">Mitigating interruptions while working</li>
+                    <li class="faq__list--item">Reducing the total number of time spent on work by increasing concentration</li>
+                    <li class="faq__list--item">Preventing burnout</li>
+                    <li class="faq__list--item">Working together with time, instead of against it</li>
+                    <li class="faq__list--item">Simplifying the complexity of achieving your goals</li>
+                    <li class="faq__list--item">Optimizing task completion</li>
+                </ul>
+            </p>
+            <p class="faq__content faq__content--end">Feel free to give the Pomodoro Technique a try and see the benefits for yourself!</p>
+            <a href="#" class="timer__controls--link timer__link" id="faq-timer">Back to Pomodoro Timer</a>
+            
+        </div>
+    </div>
+
     <div class="container__settings">
         <div class="settings__wrapper">
             <div class="settings__header--wrapper">
@@ -141,15 +200,6 @@
             </div>
 
             <form class="settings__form">
-                <h4 class="settings__subheader">
-                    Preferences
-                </h4>
-
-                <div class="settings__notifications--wrapper">
-                    <input type="checkbox" id="browser-notifications" class="settings__input--checkbox" checked>
-                    <label for="browser-notifications" class="settings__label settings__notifications">Enable browser notifications?</label>
-                </div>
-
                 <h4 class="settings__subheader">Select Sound</h4>
                 <select name="sounds" id="sound-settings" class="settings__sound" size="6">
                     <option value="./assets/audio/arpeggio.mp3" selected>Arpeggio</option>
@@ -171,15 +221,15 @@
                 <div class="settings__custom--times-wrapper">
                     <div class="settings__custom--times">
                         <label for="setting__time--pomodoro" class="settings__label">Pomodoro</label>
-                        <input type="number" id="setting__time--pomodoro" class="settings__input--number" value="25">
+                        <input pattern="[0-9]*" type="text" id="setting__time--pomodoro" class="settings__input--number" value="25">
                     </div>
                     <div class="settings__custom--times">
                         <label for="setting__time--short-break" class="settings__label">Short Break</label>
-                        <input type="number" id="setting__time--short-break" class="settings__input--number" value="5">
+                        <input pattern="[0-9]*" type="text" id="setting__time--short-break" class="settings__input--number" value="5">
                     </div>
                     <div class="settings__custom--times">
                         <label for="setting__time--long-break" class="settings__label">Long Break</label>
-                        <input type="number" id="setting__time--long-break" class="settings__input--number" value="10">
+                        <input pattern="[0-9]*" type="text" id="setting__time--long-break" class="settings__input--number" value="10">
                     </div>
                 </div>
                 <div class="settings__buttons">
@@ -187,21 +237,13 @@
                     <button type="reset" id="settings__button--reset" class="settings__button">Reset</button>
                     <button type="button" id="settings__button--sound-test" class="settings__button">Sound Test</button>
                 </div>
+                <div class="settings__buttons--saved">
+                    <p class="settings__buttons--saved-message">Settings saved!</p>
+                </div>
             </form>
             
         </div>
     </div>
-
-
-
-
-    <!-- Materalize CSS [Compiled and minified JS] -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
-
-    <!-- Bootstrap [Compiled and minified JS] -->
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
     
     <!-- Custom JS Script -->
     <script src="scripts/app.js"></script>

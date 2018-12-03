@@ -2,7 +2,11 @@
 VARIABLES
 **************************/
 * {
-    --main__color: #3D87E4;
+    --color__dark: rgba(51, 51, 51, 1);
+    --color__blue: rgba(38, 97, 230, 1);
+    --color__green:rgba(102, 204, 51, 1);
+    --color__red: rgba(204, 51, 51, 1);
+    /* --reset__color: ; */
 }
 
 /************************** 
@@ -81,19 +85,19 @@ TIMER STYLES
 /* TIMER LINK STYLES */
 .timer__link {
     text-decoration: none;
-    color: var(--main__color);
+    color: var(--color__blue);
     background-color: #fff;
     padding: 1.2rem 7rem;
     border: 1px solid rgba(0,0,0,.05);
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
     font-size: 1.6rem;
     font-weight: 600;
-    border-radius: 3px;
+    border-radius: 20px;
     transition: all 100ms;
 }
 .timer__link:hover {
     box-shadow: 0 3px 6px rgba(0,0,0,.1);
-    color: var(--main__color);
+    color: var(--color__blue);
 }
 .timer__link:active {
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
@@ -101,7 +105,7 @@ TIMER STYLES
     /* background-color: #373737; */
 }
 .timer__link.active {
-    background-color: var(--main__color);
+    background-color: var(--color__blue);
     color: #fff;
 }
 
@@ -118,13 +122,21 @@ TIMER STYLES
     font-family: "Roboto Slab", serif;
     font-family: "Lora", serif;
 }
+.timer__header--title-link {
+    color: var(--color__dark);
+    text-decoration: none;
+    transition: all 200ms;
+}
+.timer__header--title-link:hover {
+    color: #000;
+}
 .timer__header--divider {
     font-size: 0.9rem;
     letter-spacing: 0.1rem;
     transform: skewX(-25deg) scaleY(0.8);
     display: inline-block;
     font-weight: 900;
-    color: var(--main__color);
+    color: var(--color__blue);
     /* display: none; */
 }
 .timer__header--subtitle {
@@ -149,12 +161,16 @@ TIMER STYLES
     list-style: none;
     display: inline-block;
 }
+.timer__nav--link {
+    border-radius: 2px;
+}
 
 /* TIMER CLOCK */
 .container__timer--wrapper {
     background-color: #fafafa;
     padding: 4.8rem 0 2rem;
     flex: 1;
+    /* display: none; */
 }
 .timer__clock {
     display: flex;
@@ -189,6 +205,18 @@ TIMER STYLES
 .timer__controls--link {
     margin: 0 1rem;
 }
+#start {
+    background-color: var(--color__green);
+    color: #fff;
+
+}
+#stop {
+    background-color: var(--color__red);
+    color: #fff;
+}
+#reset {
+    color: #000;
+}
 
 /************************** 
 INFO STYLES
@@ -220,7 +248,7 @@ INFO STYLES
 .info__notifications--content {}
 .info__notifications--btn {
     text-decoration: none;
-    color: var(--main__color);
+    color: var(--color__blue);
     padding: .8rem 1.4rem;
     border: 1px solid rgba(0,0,0,.05);
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
@@ -268,12 +296,12 @@ INFO STYLES
 @media only screen and (max-width: 699px) {
 
     .timer__link {
-        margin: 0;
         display: inline-block;
         text-align: center;
         font-size: 1.4rem;
         width: 100%;
         padding: 0.8rem 0;
+
     }
     .timer__nav--list {
         width: 100%;
@@ -283,6 +311,7 @@ INFO STYLES
         display: inline-block;
         width: 100%;
         margin-bottom: 0.3rem;
+        margin: .1rem;
     }
     .timer__controls--list {
         width: 100%;
@@ -414,7 +443,7 @@ SETTINGS MODAL STYLES
     font-weight: 600;
     font-size: 3.6rem;
     margin-bottom: 0;
-    /* color: var(--main__color); */
+    /* color: var(--color__blue); */
 }
 .settings__btn-close--wrapper {
     display: flex;
@@ -503,14 +532,14 @@ SETTINGS MODAL STYLES
 .settings__button {
     text-decoration: none;
     text-transform: initial;
-    background-color: var(--main__color);
+    background-color: var(--color__blue);
     color: #fff;
     margin-right: 1rem;
     border: 1px solid rgba(0,0,0,.05);
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
     font-size: 1.2rem;
     font-weight: 700;
-    border-radius: 3px;
+    border-radius: 20px;
     transition: all 100ms;
 }
 
@@ -532,6 +561,98 @@ SETTINGS MODAL STYLES
 }
 #settings__button--reset,
 #settings__button--sound-test {
-    color: var(--main__color);
+    color: var(--color__dark);
     background-color: #fff;
 }
+
+.settings__buttons--saved-message {
+    font-size: 1.4rem;
+    color: #373737;
+    opacity: 0;
+    transition: all 300ms;
+    
+}
+.settings__buttons--saved-message.active {
+    opacity: 1;
+}
+
+@media only screen and (max-width: 560px) {
+    .settings__wrapper {
+        box-sizing: border-box;
+        width: 90vw;
+        padding: 1rem 2rem;
+        position: absolute;
+        top: -1px;
+        left: 0;
+        bottom: 0;
+        transform: translate(0,0);
+    }
+    .settings__header--wrapper {
+        position: relative;
+        top: -1.6rem;
+    }
+    .settings__header {
+        font-size: 2.4rem;
+    }
+    .settings__close--btn {
+        right: -1rem;
+        top: initial;
+    }
+    .settings__notifications--wrapper {
+        margin-bottom: 1rem;
+    }
+    .settings__subheader {
+        font-size: 2rem;
+        margin-bottom: 0.3rem;
+    }
+    .settings__sound {
+        height: 3rem;
+        font-size: 1.2rem;
+        width: 24rem;
+        margin-bottom: 1rem;
+    }
+    .settings__volume {
+        width: 18rem;
+    }
+    .settings__volume__slider-wrapper {
+        margin-bottom: 1rem;
+    }
+    .settings__custom--times-wrapper {
+        display: flex;
+        margin-bottom: 3rem;
+    }
+    .settings__input--number {
+        width: 7.4rem;
+    }
+}
+
+/************************** 
+FAQ STYLES
+**************************/
+
+.container__faq--wrapper {
+    display: none;
+}
+.container__faq {
+    max-width: 60rem;
+    margin-bottom: 20rem;
+}
+.faq__header {
+    font-weight: 600;
+    font-size: 3.6rem;
+    margin-bottom: 0;
+    margin-top: 1rem;
+    font-family: "Lora", serif;
+}
+.faq__subtitle {
+    font-size: 2.4rem;
+    font-weight: 500;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+.faq__content {}
+.faq__content--end {
+    margin-bottom: 4rem;
+}
+.faq__list {}
+.faq__list--item {}
